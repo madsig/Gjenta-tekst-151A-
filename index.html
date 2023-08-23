@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div id="app"></div>
+
+    <script>
+        //model
+        const app = document.getElementById('app');
+        
+        let text = '';
+        let numMax = 0;
+    
+
+        //view
+        show();
+        function show() {
+            app.innerHTML = /*HTML*/`
+                <input id="inputText" type="text" oninput="text = this.value">Tekst<br/>
+                <input id="inputNum" type="number" oninput="numMax = this.value">Maks lengde<br/>
+                <button onclick="repeat()">Gjenta</button>
+                <div id="text"></div>
+            `;
+        }
+
+        const divText = document.getElementById('text');
+
+        //controller
+        function repeat() {
+            let searchTerm = text;
+            let backup = text;
+            let regex = new RegExp(searchTerm, 'g');
+            while ((text.match(regex)).length < (numMax)) {
+                backup = text;
+                text += text;
+            }
+            if ((text.match(regex)).length > numMax) text = backup;
+            divText.innerHTML = text;
+            text = '';
+        }
+    </script>
+</body>
+</html>
